@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-
+from django.conf.global_settings import STATICFILES_STORAGE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'allauth.account',            # allauth account
     'allauth.socialaccount',      # if you're using social login
 	'dj_rest_auth.registration',
+	'whitenoise.runserver_nostatic',
 	'books',
 
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
+	'whitenoise.middleware.WhiteNoiseMiddleware', #yangi
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,7 +56,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 
 ]
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressManifestStaticFilesStorage'
 ROOT_URLCONF = 'config.urls'
 
 REST_FRAMEWORK = {
